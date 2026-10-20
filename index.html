@@ -337,8 +337,10 @@ nav::after {
     display:flex;
     flex-direction:column;
     justify-content:center;
-    align-items:flex-start;
-    padding:10%;
+    align-items:center;
+    justify-content:flex-start;
+    padding:clamp(125px,16vh,190px) 6% 40px;
+    text-align:center;
     pointer-events:none;
 }
 
@@ -353,8 +355,9 @@ nav::after {
 .intro h1 {
     position:relative;
     z-index:2;
+    width:100%;
     max-width:100%;
-    font-size:clamp(58px,10vw,145px);
+    font-size:clamp(68px,11.5vw,160px);
     line-height:.91;
     letter-spacing:-.065em;
     text-shadow:0 4px 35px rgba(0,0,0,.8);
@@ -505,8 +508,8 @@ nav::after {
 .home-footer {
     position:relative;
     z-index:2;
-    min-height:45vh;
-    padding:90px 20px;
+    min-height:18vh;
+    padding:32px 20px 24px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -936,13 +939,13 @@ a.contact-card:hover { transform:translateY(-4px); border-color:rgba(255,48,56,.
 @media (max-width:700px) {
     .intro {
         min-height:620px;
-        padding:8% 6%;
-        padding-top:150px;
-        justify-content:center;
+        padding:clamp(125px,18vh,165px) 5% 30px;
+        justify-content:flex-start;
+        align-items:center;
     }
 
     .intro h1 {
-        font-size:clamp(43px,12vw,76px);
+        font-size:clamp(48px,13vw,84px);
         letter-spacing:-.055em;
     }
 
@@ -969,7 +972,7 @@ a.contact-card:hover { transform:translateY(-4px); border-color:rgba(255,48,56,.
     .robot-placeholder { min-height:260px; }
 
     .record { grid-template-columns:1fr; gap:8px; }
-    .home-footer { min-height:35vh; }
+    .home-footer { min-height:14vh; padding:26px 18px 20px; }
     .contact-card { gap:16px; }
     .c-icon { flex-basis:46px; width:46px; height:46px; }
 
@@ -981,7 +984,7 @@ a.contact-card:hover { transform:translateY(-4px); border-color:rgba(255,48,56,.
     .brand-mark { width:40px; height:40px; }
     .brand-title { font-size:15px; }
     .menu-toggle { padding:7px 9px; }
-    .intro h1 { font-size:clamp(38px,11.5vw,48px); }
+    .intro h1 { font-size:clamp(43px,12.5vw,54px); }
     .page-title { font-size:clamp(34px,11vw,46px); }
     .eyebrow { letter-spacing:2px; }
     .info { padding:23px; }
@@ -1755,6 +1758,7 @@ const infoBoxes = [
 ];
 
 let scrollProgress = 0;
+let introTransition = 0;
 
 /* Forward travel */
 
@@ -1798,7 +1802,7 @@ function getLobsterSide(sectionIndex) {
     const offset = getHorizontalOffset();
 
     if (sectionIndex < 0) {
-        return offset;
+        return 0;
     }
 
     const cardIsOnLeft = sectionIndex % 2 === 0;
@@ -1842,6 +1846,12 @@ function updateLobsterScroll() {
     scrollProgress = maxScroll > 0
         ? Math.min(1,Math.max(0,window.scrollY/maxScroll))
         : 0;
+
+    /* Rotate from the wide opening pose into the original upright pose. */
+    introTransition = Math.min(
+        1,
+        Math.max(0,window.scrollY/Math.max(1,window.innerHeight*.8))
+    );
 
     const bar = document.getElementById("progressBar");
     const marker = document.getElementById("progressLobster");
@@ -1931,7 +1941,15 @@ function animate(time=0) {
      * The small original-style movement remains subtle.
      */
     lobster.position.x = currentX+Math.sin(t*.5)*.06;
-    lobster.position.z = currentZ-1;
+
+    /*
+     * Give the opening title more breathing room by placing the
+     * existing model slightly lower on screen. The offset fades
+     * away as scrolling transitions the lobster into its original
+     * upright pose. Phones get a little extra separation.
+     */
+    const introDrop = (window.innerWidth <= 700 ? 2.8 : 2.45) * (1-introTransition);
+    lobster.position.z = currentZ-1+introDrop;
     lobster.position.y = currentY+Math.sin(t*7)*.035;
 
     /* Original walking animation */
@@ -1947,7 +1965,12 @@ function animate(time=0) {
         )*.12;
     });
 
-    lobster.rotation.y = Math.sin(t*1.2)*.08;
+    lobster.rotation.y = (Math.PI/2)*(1-introTransition) + Math.sin(t*1.2)*.08;
+    const openingScale = window.innerWidth <= 420 ? 1.10
+        : window.innerWidth <= 700 ? 1.16
+        : 1.25;
+    const introScale = openingScale - (openingScale-1)*introTransition;
+    lobster.scale.setScalar(introScale);
 
     arms.forEach((arm,index) => {
         arm.rotation.y = Math.sin(
@@ -2187,6 +2210,12 @@ window.addEventListener("load",() => {
      */
     targetX = getLobsterSide(-1);
     currentX = targetX;
+    introTransition = 0;
+    lobster.rotation.y = Math.PI/2;
+    const openingScale = window.innerWidth <= 420 ? 1.10
+        : window.innerWidth <= 700 ? 1.16
+        : 1.25;
+    lobster.scale.setScalar(openingScale);
 
     moveNavLobster(nav.querySelector(".nav-link.active"));
 
