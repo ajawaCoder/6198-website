@@ -669,22 +669,25 @@ nav::after {
 
 .member-photo {
     width:100%;
-    aspect-ratio:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    gap:10px;
-    padding:15px;
-    text-align:center;
+    aspect-ratio:4 / 3;
+    overflow:hidden;
     background:#0a0a0c;
-    border-bottom:1px dashed #444;
-    color:#888;
+    border-bottom:1px solid var(--border);
 }
 
-.member-photo .plus { font-size:60px; font-weight:300; line-height:1; color:#777; }
-.member-photo strong { font-size:15px; color:#ccc; }
-.member-photo span { font-size:13px; }
+.member-photo img {
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    transition:transform .35s ease;
+}
+
+.member:hover .member-photo img {
+    transform:scale(1.035);
+}
+
 .member-info { padding:23px; }
 
 .member-role {
@@ -1316,26 +1319,23 @@ a.contact-card:hover { transform:translateY(-4px); border-color:rgba(255,48,56,.
         <p class="lead">
             Every robot is the result of a team effort. Our students bring
             different ideas, skills, and perspectives to Lobster Machine.
-            Each card has an empty square reserved for a future photo.
+            Meet the people behind the robot, from design and programming to build, outreach, and team operations.
         </p>
 
         <div class="team-grid">
-            <article class="member"><div class="member-photo"><div class="plus">＋</div><strong>ADD PHOTO</strong><span>Photo placeholder</span></div><div class="member-info"><div class="member-role">Team Captain</div><h2>Team Member 01</h2><p>Helps coordinate the team, organize goals, and keep projects moving.</p></div></article>
-            <article class="member"><div class="member-photo"><div class="plus">＋</div><strong>ADD PHOTO</strong><span>Photo placeholder</span></div><div class="member-info"><div class="member-role">Mechanical Design</div><h2>Team Member 02</h2><p>Works on robot mechanisms, construction, and design improvements.</p></div></article>
-            <article class="member"><div class="member-photo"><div class="plus">＋</div><strong>ADD PHOTO</strong><span>Photo placeholder</span></div><div class="member-info"><div class="member-role">Programming</div><h2>Team Member 03</h2><p>Develops robot control code, tests features, and helps debug problems.</p></div></article>
-            <article class="member"><div class="member-photo"><div class="plus">＋</div><strong>ADD PHOTO</strong><span>Photo placeholder</span></div><div class="member-info"><div class="member-role">CAD & Fabrication</div><h2>Team Member 04</h2><p>Creates digital designs and helps turn concepts into physical parts.</p></div></article>
-            <article class="member"><div class="member-photo"><div class="plus">＋</div><strong>ADD PHOTO</strong><span>Photo placeholder</span></div><div class="member-info"><div class="member-role">Driver & Strategy</div><h2>Team Member 05</h2><p>Practices robot control and helps develop match strategies.</p></div></article>
-            <article class="member"><div class="member-photo"><div class="plus">＋</div><strong>ADD PHOTO</strong><span>Photo placeholder</span></div><div class="member-info"><div class="member-role">Outreach & Operations</div><h2>Team Member 06</h2><p>Supports team communication, outreach, and sponsor relations.</p></div></article>
-            <article class="member"><div class="member-photo"><div class="plus">＋</div><strong>ADD PHOTO</strong><span>Photo placeholder</span></div><div class="member-info"><div class="member-role">Engineering</div><h2>Team Member 07</h2><p>Helps design, build, and test the robot's mechanical systems.</p></div></article>
-            <article class="member"><div class="member-photo"><div class="plus">＋</div><strong>ADD PHOTO</strong><span>Photo placeholder</span></div><div class="member-info"><div class="member-role">Software & Testing</div><h2>Team Member 08</h2><p>Helps test software, improve reliability, and evaluate robot performance.</p></div></article>
-            <article class="member"><div class="member-photo"><div class="plus">＋</div><strong>ADD PHOTO</strong><span>Photo placeholder</span></div><div class="member-info"><div class="member-role">Build & Assembly</div><h2>Team Member 09</h2><p>Supports robot construction, assembly, repairs, and preparation.</p></div></article>
-            <article class="member"><div class="member-photo"><div class="plus">＋</div><strong>ADD PHOTO</strong><span>Photo placeholder</span></div><div class="member-info"><div class="member-role">Team Operations</div><h2>Team Member 10</h2><p>Contributes to planning, documentation, communication, and team goals.</p></div></article>
+            <article class="member"><div class="member-photo"><img src="images/irtaza-haider.jpg" data-photo-base="images/irtaza-haider" data-photo-ext="0" alt="Irtaza Haider" loading="lazy" onerror="tryTeamPhoto(this)"></div><div class="member-info"><div class="member-role">Team Captain</div><h2>Irtaza Haider</h2><p>Helps coordinate the team, organize goals, and keep projects moving.</p></div></article>
+            <article class="member"><div class="member-photo"><img src="images/ryan-scott.jpg" data-photo-base="images/ryan-scott" data-photo-ext="0" alt="Ryan Scott" loading="lazy" onerror="tryTeamPhoto(this)"></div><div class="member-info"><div class="member-role">Mechanical Design</div><h2>Ryan Scott</h2><p>Works on robot mechanisms, construction, and design improvements.</p></div></article>
+            <article class="member"><div class="member-photo"><img src="images/aoun-jawa.jpg" data-photo-base="images/aoun-jawa" data-photo-ext="0" alt="Aoun Jawa" loading="lazy" onerror="tryTeamPhoto(this)"></div><div class="member-info"><div class="member-role">Programming</div><h2>Aoun Jawa</h2><p>Develops robot control code, tests features, and helps debug problems.</p></div></article>
+            <article class="member"><div class="member-photo"><img src="images/ekaagar-brar.jpg" data-photo-base="images/ekaagar-brar" data-photo-ext="0" alt="Ekaagar Brar" loading="lazy" onerror="tryTeamPhoto(this)"></div><div class="member-info"><div class="member-role">CAD & Fabrication</div><h2>Ekaagar Brar</h2><p>Creates digital designs and helps turn concepts into physical parts.</p></div></article>
+            <article class="member"><div class="member-photo"><img src="images/rayyan-bhatty.jpg" data-photo-base="images/rayyan-bhatty" data-photo-ext="0" alt="Rayyan Bhatty" loading="lazy" onerror="tryTeamPhoto(this)"></div><div class="member-info"><div class="member-role">Build & Assembly</div><h2>Rayyan Bhatty</h2><p>Supports robot construction, assembly, repairs, and preparation.</p></div></article>
+            <article class="member"><div class="member-photo"><img src="images/anat-parikh.jpg" data-photo-base="images/anat-parikh" data-photo-ext="0" alt="Anat Parikh" loading="lazy" onerror="tryTeamPhoto(this)"></div><div class="member-info"><div class="member-role">Outreach & Operations</div><h2>Anat Parikh</h2><p>Supports team communication, outreach, and sponsor relations.</p></div></article>
+            <article class="member"><div class="member-photo"><img src="images/team-member-07.jpg" data-photo-base="images/team-member-07" data-photo-ext="0" alt="Team Member 07" loading="lazy" onerror="tryTeamPhoto(this)"></div><div class="member-info"><div class="member-role">Engineering</div><h2>Team Member 07</h2><p>Helps design, build, and test the robot's mechanical systems.</p></div></article>
+            <article class="member"><div class="member-photo"><img src="images/anaiza-zaki.jpg" data-photo-base="images/anaiza-zaki" data-photo-ext="0" alt="Anaiza Zaki" loading="lazy" onerror="tryTeamPhoto(this)"></div><div class="member-info"><div class="member-role">Outreach & Operations</div><h2>Anaiza Zaki</h2><p>Supports team communication, outreach, and sponsor relations.</p></div></article>
+            <article class="member"><div class="member-photo"><img src="images/kevin-jayaneth.jpg" data-photo-base="images/kevin-jayaneth" data-photo-ext="0" alt="Kevin Jayaneth" loading="lazy" onerror="tryTeamPhoto(this)"></div><div class="member-info"><div class="member-role">Build & Assembly</div><h2>Kevin Jayaneth</h2><p>Supports robot construction, assembly, repairs, and preparation.</p></div></article>
+            <article class="member"><div class="member-photo"><img src="images/aiden-hawthorn.jpg" data-photo-base="images/aiden-hawthorn" data-photo-ext="0" alt="Aiden Hawthorn" loading="lazy" onerror="tryTeamPhoto(this)"></div><div class="member-info"><div class="member-role">Team Operations</div><h2>Aiden Hawthorn</h2><p>Contributes to planning, documentation, communication, and team goals.</p></div></article>
         </div>
 
-        <div class="callout">
-            <h2>Make this page yours.</h2>
-            <p>The numbered names and roles are placeholders. Replace them with the real names and responsibilities of your ten team members when ready. The photo squares are intentionally empty.</p>
-        </div>
+
     </main>
     <div class="content-footer">LOBSTER MACHINE / ENGINEER. BUILD. COMPETE.</div>
 </div>
@@ -1517,6 +1517,20 @@ a.contact-card:hover { transform:translateY(-4px); border-color:rgba(255,48,56,.
 </script>
 
 <script type="module">
+/* Try common image extensions if the exact file extension differs. */
+window.tryTeamPhoto = function(img) {
+    const extensions = [".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"];
+    const index = Number(img.dataset.photoExt || 0) + 1;
+    if (index >= extensions.length) {
+        img.onerror = null;
+        img.style.display = "none";
+        console.warn("Team photo not found. Check filename and images folder:", img.dataset.photoBase);
+        return;
+    }
+    img.dataset.photoExt = String(index);
+    img.src = img.dataset.photoBase + extensions[index];
+};
+
 import * as THREE from "three";
 
 /* ================= SCENE AND CAMERA ================= */
